@@ -1,0 +1,399 @@
+/* Import Google Font */
+body {
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transition */
+}
+
+/* --- CSS Variables --- */
+:root {
+    /* Theme Independent Variables */
+    --gradient-start-light: #a05aff; /* Example Purple Gradient for Light */
+    --gradient-end-light: #5a78ff;
+    --gradient-start-dark: #c89eff; /* Brighter Gradient for Dark */
+    --gradient-end-dark: #8aa1ff;
+
+    /* Light Theme Defaults (will be overridden by dark mode) */
+    --bs-primary-rgb: 108, 99, 255; /* Example Primary Purple */
+    --bs-primary: rgb(var(--bs-primary-rgb));
+    --bs-primary-hover: rgb(92, 84, 214); /* Darker shade for hover */
+    --bs-body-bg: #f8f9fa; /* Light background */
+    --bs-body-color: #212529; /* Dark text */
+    --bs-border-color: #dee2e6; /* Default border */
+    --bs-tertiary-bg: #e9ecef; /* Lighter tertiary bg for light mode forms */
+    --bs-secondary-color: #6c757d; /* Default muted text */
+
+    --section-bg: #ffffff; /* Background for specific sections */
+    --card-bg: #ffffff; /* Card background */
+    --card-border: rgba(0, 0, 0, 0.125);
+    --navbar-bg: #ffffff; /* Light navbar */
+    --navbar-color: #212529; /* Dark navbar text */
+    --footer-bg: #f1f1f1;
+    --footer-color: #6c757d;
+    --gradient-start: var(--gradient-start-light); /* Use light gradient */
+    --gradient-end: var(--gradient-end-light);
+    --hero-overlay-color: rgba(0, 0, 0, 0.5); /* Dark overlay for light mode hero */
+    --hero-text-color: #ffffff;
+    --section-title-color: var(--bs-primary);
+    --bs-btn-close-color: #000; /* Close button color */
+}
+
+/* --- Dark Mode Overrides --- */
+[data-bs-theme="dark"] {
+    --bs-primary-rgb: 138, 118, 255; /* Brighter Primary Purple */
+    --bs-primary: rgb(var(--bs-primary-rgb));
+    --bs-primary-hover: rgb(158, 138, 255); /* Lighter shade for hover */
+    --bs-body-bg: #121212; /* Very dark background */
+    --bs-body-color: #e0e0e0; /* Light grey text */
+    --bs-border-color: #444; /* Darker border */
+    --bs-tertiary-bg: #2f2f2f; /* Darker tertiary bg for dark mode forms */
+    --bs-secondary-color: #aaa; /* Adjusted muted text */
+
+    --section-bg: #1e1e1e; /* Slightly lighter dark for sections */
+    --card-bg: #2a2a2a; /* Dark card background */
+    --card-border: #444;
+    --navbar-bg: #1c1c1c; /* Darker Navbar */
+    --navbar-color: #e0e0e0; /* Light navbar text */
+    --footer-bg: #1c1c1c;
+    --footer-color: #a0a0a0;
+    --gradient-start: var(--gradient-start-dark); /* Use dark gradient */
+    --gradient-end: var(--gradient-end-dark);
+    --hero-overlay-color: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for dark mode */
+    --hero-text-color: #ffffff; /* Keep hero text white */
+    --section-title-color: var(--bs-primary); /* Keep primary color for titles */
+    --bs-btn-close-color: #fff; /* White close button */
+
+    /* Adjust specific component backgrounds and borders for dark mode */
+    .card, .list-group-item, .form-control, .border, .rounded-3, .img-thumbnail {
+        background-color: var(--card-bg);
+        border-color: var(--card-border);
+    }
+    .form-control::placeholder {
+        color: #6c757d;
+    }
+    .form-control { /* Ensure text color in inputs is readable */
+        color: var(--bs-body-color);
+    }
+     .text-muted {
+        color: var(--bs-secondary-color) !important; /* Override Bootstrap's muted */
+     }
+     /* Ensure outline-light buttons work well on dark bg */
+     .btn-outline-light {
+        --bs-btn-color: #f8f9fa;
+        --bs-btn-border-color: #f8f9fa;
+        --bs-btn-hover-color: #121212; /* Dark text on hover */
+        --bs-btn-hover-bg: #f8f9fa;
+        --bs-btn-hover-border-color: #f8f9fa;
+        --bs-btn-active-color: #121212;
+        --bs-btn-active-bg: #f8f9fa;
+        --bs-btn-active-border-color: #f8f9fa;
+     }
+      /* Contact form background in dark mode */
+     form.bg-body-tertiary {
+         background-color: var(--bs-tertiary-bg) !important;
+     }
+      /* Ensure faculty thumbnails have appropriate border */
+     .img-thumbnail {
+        background-color: var(--card-bg); /* Match card bg */
+     }
+}
+
+
+/* --- General Styles & Layout --- */
+.logo-text {
+    letter-spacing: 0.5px;
+}
+
+.section-themed-bg {
+    background-color: var(--section-bg); /* Use variable for sections needing theme background */
+    padding-top: 5rem; /* Consistent padding */
+    padding-bottom: 5rem;
+}
+
+section:not(.section-themed-bg):not(.hero-section) {
+    padding-top: 5rem; /* Consistent padding for other sections too */
+    padding-bottom: 5rem;
+}
+
+
+/* --- Header / Navbar --- */
+.navbar-dark.bg-dark-custom { /* Renamed to avoid conflict if bootstrap had bg-dark */
+  background-color: var(--navbar-bg) !important;
+}
+
+.navbar .nav-link {
+    color: var(--navbar-color);
+    font-weight: 500;
+    transition: color 0.2s ease;
+    margin: 0 0.5rem; /* Add some spacing */
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: var(--bs-primary);
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    min-height: 70vh; /* Adjust height as needed */
+    /* --- IMPORTANT: Replace with your actual background image --- */
+    background: linear-gradient(var(--hero-overlay-color), var(--hero-overlay-color)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Y29kaW5nfHx8fHx8MTY4MjYxMjUwMw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1920') no-repeat center center;
+    background-size: cover;
+    padding: 4rem 1rem; /* Reduced vertical padding slightly */
+    position: relative; /* Needed for content wrapper positioning */
+    overflow: hidden; /* Prevent potential overflow */
+}
+
+.hero-content-wrapper {
+    position: relative; /* Allows z-index stacking */
+    z-index: 2;
+    color: var(--hero-text-color); /* Ensure hero text uses the variable */
+}
+
+.hero-title {
+    /* Base styles for the title before animation */
+    display: inline-block; /* Needed for text-shadow and positioning context */
+    position: relative;
+    /* Add a subtle base shadow for depth, visible when not animating */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block; /* Important for background-clip */
+}
+
+
+/* --- Section Titles --- */
+.section-title {
+    color: var(--section-title-color);
+    margin-bottom: 3rem !important; /* Consistent spacing */
+}
+
+/* --- Custom Cards --- */
+.custom-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-radius: 0.375rem; /* Bootstrap default */
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.10); /* Softer shadow */
+}
+
+[data-bs-theme="dark"] .custom-card:hover {
+     box-shadow: 0 0.5rem 1rem rgba(255, 255, 255, 0.08); /* Adjusted dark shadow */
+}
+
+.card-img-top {
+    aspect-ratio: 16 / 10; /* Maintain consistent image aspect ratio */
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+/* --- Resource Section Card Adjustments --- */
+#resources .card-body {
+    padding: 1.5rem;
+}
+
+/* --- Faculty Section --- */
+#faculty .img-thumbnail {
+    border-width: 3px; /* Slightly thicker border */
+    border-color: var(--card-border); /* Use theme border */
+}
+
+/* --- Contact Section --- */
+#contact .contact-info i.fa-fw { /* Ensure icons align */
+    width: 1.25em;
+}
+
+/* --- Footer --- */
+.footer {
+     background-color: var(--footer-bg);
+     color: var(--footer-color);
+     padding-top: 2rem;
+     padding-bottom: 2rem;
+}
+
+.footer .social-links a {
+    transition: color 0.2s ease;
+}
+.footer .social-links a:hover {
+    color: var(--bs-primary); /* Link hover color */
+}
+[data-bs-theme="dark"] .footer .social-links a:hover {
+     color: var(--bs-primary);
+}
+
+/* --- Theme Toggle Button --- */
+#theme-toggle {
+    padding: 0.3rem 0.6rem;
+}
+#theme-toggle i {
+    font-size: 0.9rem;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+/* --- Buttons --- */
+/* Ensure buttons consistently use theme's primary color */
+.btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: var(--bs-primary-hover);
+    --bs-btn-hover-border-color: var(--bs-primary-hover);
+    --bs-btn-active-bg: var(--bs-primary-hover);
+    --bs-btn-active-border-color: var(--bs-primary-hover);
+    /* Add focus shadow color based on primary */
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: var(--bs-primary);
+    --bs-btn-hover-border-color: var(--bs-primary);
+    --bs-btn-hover-color: #fff; /* Text color on hover (usually white/black depending on theme) */
+}
+
+[data-bs-theme="dark"] .btn-outline-primary {
+    --bs-btn-hover-color: #121212; /* Darker text on hover for dark mode */
+}
+
+
+/* --- Sting Animation (Applies to .hero-title via JS) --- */
+@keyframes electric-flash-twice {
+    /* Base state (subtle existing shadow) */
+    0%, 48%, 52%, 100% {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Consistent base */
+        opacity: 1;
+    }
+    /* First Bright Flash */
+    5%, 55% {
+        /* Use lighter blues/whites that show well on the dark overlay */
+        text-shadow: 0 0 8px #fff, 0 0 15px #80dfff, 0 0 25px #00bfff;
+        opacity: 1;
+    }
+     /* Fade slightly after flashes */
+     10%, 60% {
+         text-shadow: 0 0 4px #fff, 0 0 8px #80dfff;
+         opacity: 0.9;
+     }
+}
+
+/* Class added by JavaScript to trigger the animation */
+.apply-sting {
+    animation-name: electric-flash-twice;
+    animation-duration: 1.4s; /* Adjust total time for 2 flashes + pauses */
+    animation-iteration-count: 1; /* Run the sequence defined in keyframes once */
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards; /* Keep the styles of the last keyframe (100%) */
+}
+
+/* --- Utilities --- */
+/* Add any custom utility classes if needed */
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-item .nav-link {
+        padding: 0.5rem 0; /* Adjust padding for collapsed menu */
+    }
+     #theme-toggle {
+        margin-top: 0.5rem; /* Space theme toggle below links in collapsed nav */
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-section {
+        min-height: 60vh;
+        padding: 3rem 1rem;
+    }
+    .hero-title {
+        font-size: 2.5rem; /* Adjust title size */
+    }
+    .lead {
+        font-size: 1rem; /* Adjust lead text size */
+    }
+    .section-title {
+        font-size: 1.8rem; /* Adjust section titles */
+    }
+    .footer {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+
+/* --- NEW Lightning Strike Animation (Khadkhad Kaaaaddd) --- */
+@keyframes lightning-strike-pattern {
+    /* Start & End State (Normal) */
+    0%, 100% {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Base subtle shadow */
+        opacity: 1;
+    }
+
+    /* --- "Khadkhad" Phase --- */
+    /* Quick Flash 1 */
+    5% { text-shadow: 0 0 5px #fff, 0 0 10px #a0e9ff, 0 0 15px #66d9ff; opacity: 0.9; }
+    8% { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); opacity: 1; } /* Back to base */
+
+    /* Quick Flash 2 */
+    15% { text-shadow: 0 0 6px #fff, 0 0 12px #a0e9ff, 0 0 18px #66d9ff; opacity: 0.95; }
+    19% { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); opacity: 1; } /* Back to base */
+
+    /* Quick Flash 3 (Slightly brighter) */
+    28% { text-shadow: 0 0 7px #fff, 0 0 15px #a0e9ff, 0 0 22px #33ceff; opacity: 1; }
+    33% { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); opacity: 1; } /* Back to base */
+
+    /* Pause before the big one */
+    34%, 49% {
+         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+         opacity: 1;
+    }
+
+    /* --- "Kaaaaddd" Phase --- */
+    /* Big Intense Flash - Start */
+    50% {
+        /* Brighter, wider glow */
+        text-shadow: 0 0 10px #fff, 0 0 20px #c0f2ff, 0 0 35px #80dfff, 0 0 50px #00bfff;
+        opacity: 1;
+    }
+    /* Hold the Intense Flash */
+    55%, 75% {
+        text-shadow: 0 0 10px #fff, 0 0 22px #c0f2ff, 0 0 38px #80dfff, 0 0 55px #00bfff;
+        opacity: 1;
+    }
+    /* Start Fade Out */
+    80% {
+         text-shadow: 0 0 8px #fff, 0 0 18px #c0f2ff, 0 0 30px #80dfff;
+         opacity: 0.9;
+    }
+     /* Continue Fade */
+    90% {
+        text-shadow: 0 0 4px #fff, 0 0 8px #c0f2ff;
+        opacity: 0.7;
+    }
+    /* Nearly Gone - back towards base */
+    98% {
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        opacity: 0.8;
+    }
+}
+
+/* Class added by JavaScript to trigger the animation */
+.apply-lightning-strike { /* Renamed class */
+    animation-name: lightning-strike-pattern;
+    animation-duration: 1.8s; /* Adjust total duration for the whole pattern */
+    animation-iteration-count: 1; /* Run the full pattern once */
+    animation-timing-function: linear; /* Linear helps with precise flash timing */
+    animation-fill-mode: forwards; /* Keep the styles of the last keyframe (100%) */
+}
+
+/* --- REMOVE or COMMENT OUT the old keyframes and class ---
+@keyframes electric-flash-twice { ... }
+.apply-sting { ... }
+------------------------------------------------------------- */
