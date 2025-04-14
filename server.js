@@ -14,7 +14,9 @@ const PORT = process.env.PORT || 3000;
 // 4. Configure Middleware
 // Serve static files (HTML, CSS, JS, images) from the 'public' directory
 // This is crucial for your website's assets to be accessible
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+// NEW:
+app.use(express.static(path.join(__dirname, 'docs')));
 
 // 5. Define Routes
 // Handle GET requests to the root URL ('/')
